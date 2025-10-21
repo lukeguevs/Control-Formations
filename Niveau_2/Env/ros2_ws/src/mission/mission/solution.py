@@ -6,6 +6,7 @@ from geometry_msgs.msg import PoseStamped
 from rclpy.subscription import Subscription
 from rclpy.publisher import Publisher
 from zenmav.core import Zenmav
+from zenmav.zenpoint import wp
 from std_msgs.msg import String
 
 class Solution(Node):
@@ -38,6 +39,13 @@ class Solution(Node):
         x : float = float(msg.pose.position.x)
         y : float = float(msg.pose.position.y)
         z : float = float(msg.pose.position.z)
+        
+        if self.first:
+            self.first = False
+
+            if self.follow:
+                self.get_logger().info('Following the balloon')
+                new_wp = wp(y, x, z - self.look_ahead)
         
         
         
