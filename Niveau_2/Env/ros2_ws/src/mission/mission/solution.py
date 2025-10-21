@@ -1,4 +1,6 @@
-import rclpy
+##Auteur: Lucas Guevremont, Zenith Polytechnique Montreal
+##Date: 2025-10-21
+
 from rclpy.node import Node
 from geometry_msgs.msg import PoseStamped
 from zenmav.core import Zenmav
