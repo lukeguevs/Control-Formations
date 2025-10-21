@@ -25,16 +25,22 @@ class Solution(Node):
             self.balloon_callback,
             20
         )
-        
+        self.follow : bool = True
+        self.last_x : float = None
+        self.last_y : float = None
+        self.last_z : float = None
+
         self.get_logger().info('Node initialized, ready to follow the balloon')
         self.go_to_first_point()
         
     def balloon_callback(self, msg: PoseStamped) -> None:
         self.balloon_position = msg.header.stamp
         
-        x = float(msg.pose.position.x)
-        y = float(msg.pose.position.y)
-        z = float(msg.pose.position.z)
+        x : float = float(msg.pose.position.x)
+        y : float = float(msg.pose.position.y)
+        z : float = float(msg.pose.position.z)
+        
+        
         
     def declare_parameters(self) -> list[Zenmav, float]:
         self.declare_parameter("zenmav_ip", "tcp:127.0.0.1:5762")
