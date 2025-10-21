@@ -1,8 +1,15 @@
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
+from pathlib import Path
 
-file_path = "pose_distances.csv"  # <--- change to your actual path
+
+file_path = Path(__file__).resolve().parent / "pose_distances.csv"
+if not file_path.exists():
+    raise FileNotFoundError(
+        f"pose_distances.csv not found at {file_path}.\n"
+        "If your CSV is in a different location, update `file_path` accordingly."
+    )
 df = pd.read_csv(file_path)
 
 # ---- Build/normalize arrays ----

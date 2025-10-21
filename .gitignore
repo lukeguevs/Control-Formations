@@ -23,3 +23,5 @@ __pycache__/
 # Docker-related
 env-zenith-*/
 
+#specific python files
+perfo_view.py

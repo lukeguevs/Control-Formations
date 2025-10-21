@@ -16,9 +16,8 @@ class Solution(Node):
         self.arrival_pub : Publisher = self.create_publisher(String, '/arrival', 10)
         
         ##drone configuration
-        self.drone : Zenmav = self.declare_parameters()[0]
-        self.takeoff_alt : float  = self.declare_parameters()[1]
-        
+        self.declare_parameters()
+
         self.balloon_position : Subscription = self.create_subscription(
             PoseStamped,
             '/Ballon_pose',
@@ -42,17 +41,21 @@ class Solution(Node):
         
         
         
-    def declare_parameters(self) -> list[Zenmav, float]:
+    def declare_parameters(self) -> None:
         self.declare_parameter("zenmav_ip", "tcp:127.0.0.1:5762")
         zenmav_ip = (
             self.get_parameter("zenmav_ip").get_parameter_value().string_value
         )
         self.declare_parameter("takeoff_alt", 10.0)
-        takeoff_alt = (
+        self.takeoff_alt = (
             self.get_parameter("takeoff_alt").get_parameter_value().double_value
         )
-        drone = Zenmav(zenmav_ip, gps_thresh=0.2)
-        return [drone, takeoff_alt]
+        self.declare_parameter("look_ahead", 1.0)
+        self.look_ahead = (
+            self.get_parameter("look_ahead").get_parameter_value().double_value
+        )
+        
+        self.drone = Zenmav(zenmav_ip, gps_thresh=0.2)
         
 
     def go_to_first_point(self) -> None:
