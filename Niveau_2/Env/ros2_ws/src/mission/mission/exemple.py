@@ -3,9 +3,8 @@
 import rclpy
 from rclpy.node import Node
 from rclpy.time import Time 
-from std_msgs.msg import String, Float32
+from std_msgs.msg import String
 from geometry_msgs.msg import PoseStamped
-import time
 from zenmav.core import Zenmav
 from zenmav.zenpoint import wp
 
