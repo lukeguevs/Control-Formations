@@ -46,6 +46,9 @@ class Solution(Node):
             if self.follow:
                 self.get_logger().info('Following the balloon')
                 new_wp = wp(y, x, z - self.look_ahead)
+                self.drone.local_target(new_wp, wait_to_reach=False)
+                self.get_logger().info(f'SENDING TO {new_wp.coordinates} m NED')
+
         
         
         
