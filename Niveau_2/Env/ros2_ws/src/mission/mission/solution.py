@@ -4,6 +4,7 @@
 from rclpy.node import Node
 from geometry_msgs.msg import PoseStamped
 from rclpy.subscription import Subscription
+from rclpy.publisher import Publisher
 from zenmav.core import Zenmav
 from std_msgs.msg import String
 
@@ -12,7 +13,7 @@ class Solution(Node):
         super().__init__('solution_Lucas')
         
         ##arrival configuration
-        self.arrival_pub = self.create_publisher(String, '/arrival', 10)
+        self.arrival_pub : Publisher = self.create_publisher(String, '/arrival', 10)
         
         ##drone configuration
         self.drone : Zenmav = self.declare_parameters()[0]
