@@ -5,11 +5,6 @@ from pathlib import Path
 
 
 file_path = Path(__file__).resolve().parent / "pose_distances.csv"
-if not file_path.exists():
-    raise FileNotFoundError(
-        f"pose_distances.csv not found at {file_path}.\n"
-        "If your CSV is in a different location, update `file_path` accordingly."
-    )
 df = pd.read_csv(file_path)
 
 # ---- Build/normalize arrays ----
