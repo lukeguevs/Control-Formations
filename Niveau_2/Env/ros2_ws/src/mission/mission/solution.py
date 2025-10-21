@@ -18,15 +18,21 @@ class Solution(Node):
             PoseStamped,
             '/Ballon_pose',
             self.balloon_callback,
-            10
+            20
         )
         
+        self.declare_parameter("takeoff_alt", 10.0)
+        self.takeoff_alt = (
+            self.get_parameter("takeoff_alt").get_parameter_value().double_value
+        )
+        self.get_logger().info('Node initialized, ready to follow the balloon')
+        self.goToFirstPoint()
+        
+    def balloon_callback(self, msg) -> None:
+        self.balloon_position = msg.pose
         
 
-    def balloon_callback(self, msg):
-        self.balloon_position = msg.pose
-
-    def goToFirstPoint(self):
+    def goToFirstPoint(self) -> None:
         self.drone.set_mode('GUIDED')
         self.drone.arm()
         self.drone.takeoff(10.0)
