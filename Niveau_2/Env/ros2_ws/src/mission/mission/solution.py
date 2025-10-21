@@ -2,10 +2,14 @@ import rclpy
 from rclpy.node import Node
 from geometry_msgs.msg import PoseStamped
 from zenmav.core import Zenmav
+from std_msgs.msg import String
 
 class Solution(Node):
     def __init__(self):
         super().__init__('solution_Lucas')
+        
+        ##arrival configuration
+        self.arrival_pub = self.create_publisher(String, '/arrival', 10)
         
         ##drone configuration
         self.declare_parameter("zenmav_ip", "tcp:127.0.0.1:5762")
@@ -32,9 +36,15 @@ class Solution(Node):
         self.balloon_position = msg.pose
         
 
-    def goToFirstPoint(self) -> None:
+    def go_to_first_point(self) -> None:
         self.drone.set_mode('GUIDED')
         self.drone.arm()
         self.drone.takeoff(10.0)
         self.drone.local_target((10, 20, -50))
+        
+        self.arrival_pub.publish(String(data='Lucas'))
+        
+        
+        
+        
     
