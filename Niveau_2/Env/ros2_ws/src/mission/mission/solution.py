@@ -53,10 +53,10 @@ class Solution(Node):
                 self.get_logger().info(f'SENDING TO {new_wp.coordinates} m NED')
         
         else: 
-            dt = (Time.from_msg(self.ballon_stamp) - Time.from_msg(self.last_stamp)).nanoseconds / 1e9
+            dt = (Time.from_msg(self.balloon_position) - Time.from_msg(self.last_stamp)).nanoseconds / 1e9
             if dt <= 0:
                 # Out-of-order or identical stamps: just update state and skip prediction
-                self.last_stamp = self.ballon_stamp
+                self.last_stamp = self.balloon_position
                 self.last_x, self.last_y, self.last_z = self.x, self.y, self.z
                 return
             # Velocities (m/s): forward difference
