@@ -67,6 +67,16 @@ class Solution(Node):
             px = self.x + dxdt * self.look_ahead
             py = self.y + dydt * self.look_ahead
             pz = self.z + dzdt * self.look_ahead
+            
+            if self.follow:
+                msg = PoseStamped()
+                msg.pose.position.x = px
+                msg.pose.position.y = py
+                msg.pose.position.z = pz
+
+                self.command_pub.publish(msg)
+
+                self.get_logger().info(f'PREDICT {self.look_ahead:.2f}s → {(py, px, -pz)} m ENU')
 
         
         self.last_stamp = self.balloon_position
