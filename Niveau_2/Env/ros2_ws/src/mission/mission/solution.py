@@ -16,6 +16,7 @@ class Solution(Node):
         
         ##arrival configuration
         self.arrival_pub : Publisher = self.create_publisher(String, '/arrival', 10)
+        self.command_pub = self.create_publisher(PoseStamped, '/mavros/setpoint_position/local', 20)
         
         ##drone configuration
         self.declare_parameters()
@@ -55,11 +56,11 @@ class Solution(Node):
         else: 
             dt = (Time.from_msg(self.balloon_position) - Time.from_msg(self.last_stamp)).nanoseconds / 1e9
             if dt <= 0:
-                # Out-of-order or identical stamps: just update state and skip prediction
+                
                 self.last_stamp = self.balloon_position
                 self.last_x, self.last_y, self.last_z = self.x, self.y, self.z
                 return
-            # Velocities (m/s): forward difference
+            
             dxdt = (self.x - self.last_x) / dt
             dydt = (self.y - self.last_y) / dt
             dzdt = (self.z - self.last_z) / dt
