@@ -21,8 +21,8 @@ setup(
     entry_points={
         'console_scripts': [
             #nom_choisi = package.nom_du_fichier_sans_extension : main
-            'exemple = mission.exemple:main'
-            'solution_Lucas = mission.main:main',
+            'exemple = mission.exemple:main',
+            # 'solution_Lucas = mission.main:main',
         ],
     },
 )
